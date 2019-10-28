@@ -1,28 +1,72 @@
-import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { Container, Segment, Grid } from 'semantic-ui-react';
-import GridHeader from '../pages/Header/index';
-import News from '../pages/News/News';
-import data from '../data/data';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from 'react-router-dom';
+import { Container } from 'semantic-ui-react';
+import Header from '../components/Header/index';
+import WrappedNews from './WrappedNews/index';
+import WrappedLogin from './WrappedLogin/index';
+import WrappedProfile from './WrappedProfile/index';
+import WrappedAuthExit from './WrappedAuthExit/index';
+import WrappedMain from './WrappedMain/index';
+import { mapStateToProps, mapDispatchToProps } from '../store/maps';
+import { historyPush, logHistory } from '../history/history';
 
-const App = () => (
-  <Router>
+const App = ({ authStatus, actionAuthTrue, actionAuthFalse }) => {
+  // useEffect(() => {
+  //   console.log(logHistory);
+  // });
+  return (
     <Container style={{ marginTop: '2rem' }}>
-      <GridHeader />
-      <Segment>
-        <Grid>
-          <Switch>
-            <Route exact path="/" />
-            <Route path="/login">login</Route>
-            <Route path="/news">
-              {data.map((value) => <News key={value.id} data={value} />)}
-            </Route>
-            <Route path="/profile">profile</Route>
-          </Switch>
-        </Grid>
-      </Segment>
+      <input
+        style={{ marginBottom: '10px', display: 'none' }}
+        type="button"
+        value="Сменить статус"
+        onClick={() => {
+          authStatus ? actionAuthFalse() : actionAuthTrue();
+        }}
+      />
+      <Router>
+        <Header />
+        <Switch>
+          <Route
+            exact
+            path="/"
+            render={() => {
+              historyPush('/');
+              return <WrappedMain />;
+            }}
+          />
+          <Route
+            path="/login"
+            render={() => (authStatus ? <WrappedAuthExit /> : <WrappedLogin />)}
+          />
+          <Route
+            path="/news"
+            render={() => {
+              historyPush('/news');
+              return <WrappedNews />;
+            }}
+          />
+          <Route
+            path="/profile"
+            render={() => {
+              historyPush('/profile');
+              return authStatus ? (
+                <WrappedProfile />
+              ) : (
+                <Redirect push to="/login" from="/profile" />
+              );
+            }}
+          />
+        </Switch>
+      </Router>
     </Container>
-  </Router>
-);
+  );
+};
 
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);
