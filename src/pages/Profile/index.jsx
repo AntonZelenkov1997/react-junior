@@ -12,11 +12,9 @@ import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { mapStateToProps, mapDispatchToProps } from '../../store/maps';
-import store from '../../store/store';
 import Contacts from '../../components/Contacts';
 import { errorUser } from '../../backend/index';
 
-// Попробуй потом решить как нибудь мгновенную анимацию Header
 const Profile = ({ actionGetUserInfo, userInfo }) => {
   const [visibleHeader, setVisibleHeader] = useState(false);
   const [visibleProfile, setVisibleProfile] = useState(false);
@@ -50,7 +48,7 @@ const Profile = ({ actionGetUserInfo, userInfo }) => {
       document.body.style.backgroundColor = 'rgb(247,247,247)';
       document.body.style.height = '100%';
     };
-  }, [id, actionGetUserInfo, userInfo, setVisibleHeader]);
+  }, [id, actionGetUserInfo, userInfo, setVisibleHeader, calculations]);
 
   if (userInfo === null) {
     return <div>Loading...</div>;
@@ -76,7 +74,6 @@ const Profile = ({ actionGetUserInfo, userInfo }) => {
           <div>
             <Header
               content="Взгляните на ваше досье"
-              // content={`topPassed: ${calculations.topPassed.toString()} pixelsPassed: ${calculations.pixelsPassed.toString()}`}
               textAlign="center"
               className="PageProfile ForSegmentHeader"
             />

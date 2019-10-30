@@ -1,0 +1,3 @@
+const ACTION_GET_NEWS = 'ACTION_GET_NEWS';
+
+export default ACTION_GET_NEWS;

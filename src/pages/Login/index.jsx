@@ -93,6 +93,7 @@ const Login = ({ actionAuthTrue, actionGetId }) => {
             color="green"
             content="Login"
             fluid
+            disabled={loadStatus}
             loading={loadStatus}
           />
         </Form.Field>
