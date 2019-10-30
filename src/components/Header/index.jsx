@@ -4,7 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { mapStateToProps, mapDispatchToProps } from '../../store/maps';
 
-const Header = ({ authStatus, actionAuthFalse }) => {
+const Header = ({ authStatus, actionAuthFalse, userId }) => {
   const [isActive, setIsActive] = useState({ name: '' });
   const history = useHistory();
 
@@ -53,7 +53,7 @@ const Header = ({ authStatus, actionAuthFalse }) => {
 
             <Menu.Item
               as={Link}
-              to="/profile"
+              to={`/profile/${userId}`}
               name="profile"
               onClick={handleClick}
               active={isActive.name === 'profile'}

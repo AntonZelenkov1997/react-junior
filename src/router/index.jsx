@@ -43,7 +43,7 @@ const App = ({ authStatus, actionAuthTrue, actionAuthFalse }) => {
           />
           <Route
             path="/login"
-            render={() => (authStatus ? <WrappedAuthExit /> : <WrappedLogin />)}
+            render={() => (authStatus ? null : <WrappedLogin />)}
           />
           <Route
             path="/news"
@@ -53,13 +53,13 @@ const App = ({ authStatus, actionAuthTrue, actionAuthFalse }) => {
             }}
           />
           <Route
-            path="/profile"
+            path="/profile/:id"
             render={() => {
               historyPush('/profile');
               return authStatus ? (
                 <WrappedProfile />
               ) : (
-                <Redirect push to="/login" from="/profile" />
+                <Redirect push to="/login" from="/profile/:id" />
               );
             }}
           />

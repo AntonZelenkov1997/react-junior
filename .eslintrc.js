@@ -12,6 +12,8 @@ module.exports = {
         "react/prop-types": 0,
         'react/jsx-props-no-spreading': 0,
         'no-alert': 0,
-        'react/require-default-props': 0
+        'react/require-default-props': 0,
+        "no-param-reassign": 0,
+        "no-shadow": 0,
     }
 };

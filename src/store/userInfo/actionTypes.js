@@ -1,0 +1,3 @@
+const ACTION_GET_USER_INFO = 'ACTION_GET_USER_INFO';
+
+export default ACTION_GET_USER_INFO;

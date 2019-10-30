@@ -7,10 +7,10 @@ import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { mapStateToProps, mapDispatchToProps } from '../../store/maps';
 import { logHistory, historyPush } from '../../history/history';
-import errorLogin from '../../backend/index';
+import { errorLogin } from '../../backend/index';
 import store from '../../store/store';
 
-const Login = ({ userId, actionAuthTrue, actionGetId }) => {
+const Login = ({ actionAuthTrue, actionGetId }) => {
   const [animation, setAnimation] = useState(false);
   const [animationError, setAnimationError] = useState(false);
   const [loadStatus, setLoadStatus] = useState(false);
@@ -35,7 +35,9 @@ const Login = ({ userId, actionAuthTrue, actionGetId }) => {
         } else {
           actionGetId(res.data.data.id);
           actionAuthTrue();
-          logHistory[logHistory.length - 2] === '/profile' ? history.push('/profile') : history.goBack();
+          logHistory[logHistory.length - 2] === '/profile'
+            ? history.push(`/profile/${store.getState().responseMap.userId}`)
+            : history.goBack();
         }
       });
   };

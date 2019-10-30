@@ -8,4 +8,9 @@ const errorLogin = {
   message: 'wrong_email_or_password',
 };
 
-export default errorLogin;
+const errorUser = {
+  status: 'err',
+  message: 'user_not_found',
+}
+
+export { errorLogin, errorUser };
